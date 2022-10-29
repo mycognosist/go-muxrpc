@@ -24,7 +24,7 @@ func NewWriter(w io.Writer) *Writer { return &Writer{w: w} }
 // WritePacket creates an header for the Packet and writes it and the body to the underlying writer
 func (w *Writer) WritePacket(r Packet) error {
 	bodyLen := len(r.Body)
-	if bodyLen > math.MaxUint32 {
+	if uint(bodyLen) > math.MaxUint32 {
 		return fmt.Errorf("pkt-codec: body too large (%d)", bodyLen)
 	}
 
